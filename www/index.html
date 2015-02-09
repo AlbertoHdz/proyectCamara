@@ -6,6 +6,10 @@
         <link rel="stylesheet" type="text/css" href="js/jquery.mobile-1.4.5.css" />
         <title>Online??</title>
 		<script type="text/javascript" charset="utf-8" src="cordova.js"></script>
+		<link rel="stylesheet" type="text/css" href="css/index.css">  
+<title>Acceso a la cámara con PhoneGap</title>  
+  
+  
 <script>
 function cargar(){
 	document.addEventListener("deviceready", onDeviceReady, false);
@@ -109,12 +113,17 @@ function cargar(){
     <body style="background:rgba(110,77,170,0.5)" onload=cargar();>
         <div id="ingreso" class="ui-shadow" style="background:#FFF" style="padding:10px; border-radius:7px;">
 			<button onclick="TomarFoto();">Capturar foto</button> <br>
-    <button onclick="TomarFotoEdit();">Caputar foto editable</button> <br>
-    <button onclick="getPhoto(pictureSource.PHOTOLIBRARY);">Desde libreria</button><br>
-    <button onclick="getPhoto(pictureSource.SAVEDPHOTOALBUM);">Desde album</button><br>
-    <a href="localizacion.html">Localizacion</a>
     <img style="display:none;width:140px;height:140px;" id="imagen" src="" />    
         </div>
+		
+<div id="content" style="margin-top: 100px;">  
+    <h1>Acceso a la cámara con PhoneGap</h1>  
+    <button id="takePhoto">TOMAR FOTO</button>  
+    <img id="photo" src="">  
+    <button id="sendPhoto">ENVIAR FOTO</button>  
+</div>    
+<script type="text/javascript" src="js/index.js"></script>  
+<script type="text/javascript">app.initialize();</script>
 		<br>
     </body>
 </html>
