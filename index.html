@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <link rel="stylesheet" type="text/css" href="js/jquery.mobile-1.4.5.css" />
+        <title>Online??</title>
+		<script type="text/javascript" charset="utf-8" src="cordova.js"></script>
+<script>
+function cargar(){
+	document.addEventListener("deviceready", onDeviceReady, false);
+	
+	
+}
+	function onDeviceReady() {
+		// Register the event listener
+		
+		alert("Manejo con la camara");
+		//document.getElementById("ingreso").innerHTML += "<br> nueva linea";  // Agrego nueva linea antes
+	}
+	
+	///////////////////////////////////////////////////////////////////////////////
+	var pictureSource;   // origen de la imagen
+    var destinationType; // establece el formato del valor devuelto 
+    // Cordova preparado para ser usado
+    function onDeviceReady() 
+    {
+        pictureSource = navigator.camera.PictureSourceType;
+        destinationType = navigator.camera.DestinationType;
+    }
+
+    // Se ejecuta cuando la imagen se recupera correctamente desde foto 
+    function onPhotoDataSuccess(imageData) 
+    {
+      // Si queremos ver la imagen en codificación base64
+      // console.log(imageData);
+
+      // Obtenemos el handle de la imagen
+      var imagen = document.getElementById('imagen');
+
+      // Desbloqueamos los elementos de la imagen
+      imagen.style.display = 'block';
+
+      // Mostramos la foto capturada
+      imagen.src = "data:image/jpeg;base64," + imageData;
+    }
+
+    // Se ejecuta cuando la imagen se recupera correctamente desde galería
+    function FromGaleria(imageURI) 
+    {
+      // Para ver el URI de la imagen 
+      // console.log(imageURI);
+
+      // Obtenemos el handle de la imagen
+      var imagen = document.getElementById('imagen');
+
+      // Desbloqueamos los elementos de la imagen
+      imagen.style.display = 'block';
+
+      // Mostramos la foto capturada
+      imagen.src = imageURI;
+    }
+
+    // Función que se ejecuta cuando se pulsa el botón "Capturar foto"
+    function TomarFoto() 
+    {
+      // Mostramos la cámara del móvil y obtenemos la imagen 
+      // capturada codificada en base64
+      navigator.camera.getPicture(onPhotoDataSuccess, error, 
+      { 
+        quality: 50,
+        destinationType: destinationType.DATA_URL 
+      });
+    }
+
+    // Función que se ejecuta cuando se pulsa el botón "Capturar foto editable"
+    function TomarFotoEdit() 
+    {
+      // Mostramos la cámara del móvil y permitimos editar la imagen, 
+      // y obtenemos la imagen capturada codificada en base64
+      navigator.camera.getPicture(onPhotoDataSuccess, error, 
+      { 
+        quality: 20, 
+        allowEdit: true,
+        destinationType: destinationType.DATA_URL 
+      });
+    }
+
+    // Función que se ejecuta cuando se pulsa 
+    // el botón "Desde album" o "Desde librería" 
+    function getPhoto(source) 
+    {
+      // Obtenemos la imagen del origen especificado (librería o galería)
+      navigator.camera.getPicture(FromGaleria, error, 
+      {
+        quality: 50, 
+        destinationType: destinationType.FILE_URI,
+        sourceType: source 
+      });
+    }
+
+    // Si hay algún error
+    function error(message) 
+    {
+      alert('Error al trabajar con la cámara: ' + message);
+    }
+</script>
+    </head>
+    <body style="background:rgba(110,77,170,0.5)" onload=cargar();>
+        <div id="ingreso" class="ui-shadow" style="background:#FFF" style="padding:10px; border-radius:7px;">
+			<button onclick="TomarFoto();">Capturar foto</button> <br>
+    <button onclick="TomarFotoEdit();">Caputar foto editable</button> <br>
+    <button onclick="getPhoto(pictureSource.PHOTOLIBRARY);">Desde libreria</button><br>
+    <button onclick="getPhoto(pictureSource.SAVEDPHOTOALBUM);">Desde album</button><br>
+    <a href="localizacion.html">Localizacion</a>
+    <img style="display:none;width:140px;height:140px;" id="imagen" src="" />    
+        </div>
+		<br>
+    </body>
+</html>
